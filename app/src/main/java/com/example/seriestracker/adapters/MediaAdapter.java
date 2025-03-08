@@ -5,55 +5,75 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.seriestracker.R;
 import com.example.seriestracker.modelo.MediaItem;
-
 import java.util.List;
 
-public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHolder> {
-    private final List<MediaItem> mediaList;
+public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
+    private List<MediaItem> mediaItems;
+    private OnItemClickListener editListener;
+    private OnItemClickListener deleteListener;
 
-    public MediaAdapter(List<MediaItem> mediaList) {
-        this.mediaList = mediaList;
+    public interface OnItemClickListener {
+        void onItemClick(MediaItem item);
+    }
+
+    public MediaAdapter(List<MediaItem> mediaItems, OnItemClickListener editListener, OnItemClickListener deleteListener) {
+        this.mediaItems = mediaItems;
+        this.editListener = editListener;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
     @Override
-    public MediaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_media, parent, false);
-        return new MediaViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
-        MediaItem item = mediaList.get(position);
-        holder.textTitle.setText(item.getTitle());
-        holder.textType.setText(item.getType());
-        holder.checkWatched.setChecked(item.isWatched());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        MediaItem item = mediaItems.get(position);
+        holder.title.setText(item.getTitle());
+        holder.type.setText(item.getType());
+        holder.watched.setChecked(item.isWatched());
 
-        holder.checkWatched.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            item.setWatched(isChecked);
+        // Clic para editar
+        holder.itemView.setOnClickListener(v -> editListener.onItemClick(item));
+
+        // Pulsación larga para eliminar
+        holder.itemView.setOnLongClickListener(v -> {
+            deleteListener.onItemClick(item);
+            return true;
         });
+
+        // Marcar como visto/no visto
+        holder.watched.setOnCheckedChangeListener((buttonView, isChecked) -> item.setWatched(isChecked));
     }
 
     @Override
     public int getItemCount() {
-        return mediaList.size();
+        return mediaItems.size();
     }
 
-    public static class MediaViewHolder extends RecyclerView.ViewHolder {
-        TextView textTitle, textType;
-        CheckBox checkWatched;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView title, type;
+        CheckBox watched;
 
-        public MediaViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            textTitle = itemView.findViewById(R.id.textTitle);
-            textType = itemView.findViewById(R.id.textType);
-            checkWatched = itemView.findViewById(R.id.checkWatched);
+            title = itemView.findViewById(R.id.textTitle);
+            type = itemView.findViewById(R.id.textType);
+            watched = itemView.findViewById(R.id.checkWatched);
         }
+    }
+
+    // Método para actualizar la lista después de agregar/eliminar elementos
+    public void updateData(List<MediaItem> newItems) {
+        mediaItems.clear();
+        mediaItems.addAll(newItems);
+        notifyDataSetChanged();
     }
 }

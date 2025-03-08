@@ -2,5 +2,14 @@
     <string name="app_name">SeriesTracker</string>
     <string name="title">Título</string>
     <string name="type">Tipo</string>
+    <string-array name="media_types">
+        <item>Serie</item>
+        <item>Película</item>
+    </string-array>
+    <string name="add_item_desc">Añadir nueva serie o película</string>
+    <string name="hint_title">Ingrese el título</string>
+    <string name="recycler_view_desc">Lista de series y películas</string>
+
+
 
 </resources>
