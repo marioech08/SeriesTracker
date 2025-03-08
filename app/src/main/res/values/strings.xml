@@ -9,6 +9,13 @@
     <string name="add_item_desc">Añadir nueva serie o película</string>
     <string name="hint_title">Ingrese el título</string>
     <string name="recycler_view_desc">Lista de series y películas</string>
+    <string name="episode_list_title">Lista de Episodios</string>
+    <string name="add_episode_button">Agregar Episodio</string>
+    <string name="episode_list_recycler_description">Lista de episodios de la serie</string>
+    <string name="add_episode">Añadir Episodio</string>
+    <string name="delete_episode">Eliminar Episodio</string>
+
+
 
 
 

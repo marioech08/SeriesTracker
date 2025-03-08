@@ -6,10 +6,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.seriestracker.R;
+import com.example.seriestracker.database.MediaDatabase;
 import com.example.seriestracker.modelo.MediaItem;
+import com.example.seriestracker.EpisodeDialog; // Import corregido
+
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
     private List<MediaItem> mediaItems;
@@ -40,17 +46,32 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         holder.type.setText(item.getType());
         holder.watched.setChecked(item.isWatched());
 
-        // Clic para editar
-        holder.itemView.setOnClickListener(v -> editListener.onItemClick(item));
-
-        // Pulsación larga para eliminar
-        holder.itemView.setOnLongClickListener(v -> {
-            deleteListener.onItemClick(item);
-            return true;
+        // Acción al hacer clic: distinguir entre serie y película
+        holder.itemView.setOnClickListener(v -> {
+            if (item.getType().equals("Serie")) {
+                // Si es una serie, abrir el diálogo de episodios
+                EpisodeDialog episodeDialog = new EpisodeDialog(item.getId());
+                episodeDialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "EpisodeDialog");
+            } else {
+                // Si es una película, abrir edición
+                editListener.onItemClick(item);
+            }
         });
 
-        // Marcar como visto/no visto
-        holder.watched.setOnCheckedChangeListener((buttonView, isChecked) -> item.setWatched(isChecked));
+        // Guardar en la base de datos cuando se cambia el estado del CheckBox
+        holder.watched.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            item.setWatched(isChecked);
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(() -> {
+                MediaDatabase.getInstance(holder.itemView.getContext()).mediaDao().update(item);
+            });
+        });
+
+        // Acción para eliminar con pulsación larga
+        holder.itemView.setOnLongClickListener(v -> {
+            deleteListener.onItemClick(item);
+            return true; // Indicar que el evento fue manejado
+        });
     }
 
     @Override
@@ -70,7 +91,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         }
     }
 
-    // Método para actualizar la lista después de agregar/eliminar elementos
     public void updateData(List<MediaItem> newItems) {
         mediaItems.clear();
         mediaItems.addAll(newItems);

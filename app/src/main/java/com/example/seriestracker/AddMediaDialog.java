@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.example.seriestracker.modelo.MediaItem;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AddMediaDialog extends DialogFragment {
     private OnMediaAddedListener listener;
@@ -42,12 +44,18 @@ public class AddMediaDialog extends DialogFragment {
         spinnerType.setAdapter(adapter);
 
         builder.setPositiveButton("Agregar", (dialog, which) -> {
-            String title = inputTitle.getText().toString().trim();
+            String title = inputTitle.getText().toString();
             String type = spinnerType.getSelectedItem().toString();
+
             if (!title.isEmpty()) {
                 MediaItem newItem = new MediaItem(title, type, false);
-                if (listener != null) {
-                    listener.onMediaAdded(newItem);
+                listener.onMediaAdded(newItem);
+
+                // Si es una serie, mostrar el diálogo de episodios
+                if (type.equals("Serie")) {
+                    int seriesId = newItem.getId(); // Asumimos que el ID es generado automáticamente
+                    AddEpisodeDialog episodeDialog = new AddEpisodeDialog(seriesId);
+                    episodeDialog.show(getParentFragmentManager(), "AddEpisodeDialog");
                 }
             }
         });
