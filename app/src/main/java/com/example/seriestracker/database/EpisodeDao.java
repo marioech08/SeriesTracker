@@ -19,6 +19,10 @@ public interface EpisodeDao {
     @Delete
     void delete(Episode episode);
 
+    @Query("SELECT COUNT(*) FROM episodes WHERE watched = 0")
+    int countUnwatchedEpisodes();
+
+
 
 
     @Query("SELECT * FROM episodes WHERE seriesId = :seriesId")

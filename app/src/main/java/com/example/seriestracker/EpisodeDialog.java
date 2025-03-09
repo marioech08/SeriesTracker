@@ -3,6 +3,7 @@ package com.example.seriestracker;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.example.seriestracker.adapters.EpisodeAdapter;
 import com.example.seriestracker.database.MediaDatabase;
 import com.example.seriestracker.modelo.Episode;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,19 +47,17 @@ public class EpisodeDialog extends DialogFragment {
 
         database = MediaDatabase.getInstance(getActivity());
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            episodes = database.episodeDao().getEpisodesForSeries(seriesId);
-            requireActivity().runOnUiThread(() -> {
-                adapter = new EpisodeAdapter(episodes);
-                recyclerView.setAdapter(adapter);
-            });
-        });
+        // 🔹 Inicializar lista y adaptador para evitar NullPointerException
+        episodes = new ArrayList<>();
+        adapter = new EpisodeAdapter(episodes);
+        recyclerView.setAdapter(adapter);
+
+        loadEpisodes(); // Cargar episodios desde la base de datos
 
         // Botón para añadir episodio
         TextView buttonAddEpisode = view.findViewById(R.id.buttonAddEpisode);
         buttonAddEpisode.setOnClickListener(v -> {
-            AddEpisodeDialog addEpisodeDialog = new AddEpisodeDialog(seriesId);
+            AddEpisodeDialog addEpisodeDialog = new AddEpisodeDialog(seriesId, this::addEpisodeToList);
             addEpisodeDialog.show(getParentFragmentManager(), "AddEpisodeDialog");
         });
 
@@ -77,17 +77,31 @@ public class EpisodeDialog extends DialogFragment {
         return builder.create();
     }
 
-    // 🔹 ACTUALIZAR INSTANTÁNEAMENTE LA LISTA CUANDO SE AGREGA UN EPISODIO
-    public void addEpisodeToList(Episode newEpisode) {
-        episodes.add(newEpisode);
-        adapter.notifyItemInserted(episodes.size() - 1);
-    }
-
     public void loadEpisodes() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            episodes = database.episodeDao().getEpisodesForSeries(seriesId);
-            requireActivity().runOnUiThread(() -> adapter.updateEpisodes(episodes));
+            List<Episode> loadedEpisodes = database.episodeDao().getEpisodesForSeries(seriesId);
+            requireActivity().runOnUiThread(() -> {
+                if (loadedEpisodes != null) {
+                    episodes.clear();
+                    episodes.addAll(loadedEpisodes);
+                    adapter.notifyDataSetChanged(); // 🔹 Refrescar la lista en la UI
+                }
+            });
         });
+    }
+
+    public void addEpisodeToList(Episode newEpisode) {
+        if (episodes == null) {
+            episodes = new ArrayList<>();
+        }
+
+        episodes.add(newEpisode);
+
+        if (adapter != null) {
+            adapter.notifyItemInserted(episodes.size() - 1);
+        } else {
+            Log.e("EpisodeDialog", "Adapter is null, cannot update UI");
+        }
     }
 }

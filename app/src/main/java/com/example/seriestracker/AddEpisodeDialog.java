@@ -14,9 +14,15 @@ import java.util.concurrent.Executors;
 
 public class AddEpisodeDialog extends DialogFragment {
     private final int seriesId;
+    private OnEpisodeAddedListener listener;
 
-    public AddEpisodeDialog(int seriesId) {
+    public interface OnEpisodeAddedListener {
+        void onEpisodeAdded(Episode episode);
+    }
+
+    public AddEpisodeDialog(int seriesId, OnEpisodeAddedListener listener) {
         this.seriesId = seriesId;
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,11 +43,9 @@ public class AddEpisodeDialog extends DialogFragment {
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
                     MediaDatabase.getInstance(requireActivity()).episodeDao().insert(newEpisode);
-
-                    // 🔹 ACTUALIZAR INSTANTÁNEAMENTE LA LISTA
                     requireActivity().runOnUiThread(() -> {
-                        if (getParentFragment() instanceof EpisodeDialog) {
-                            ((EpisodeDialog) getParentFragment()).addEpisodeToList(newEpisode);
+                        if (listener != null) {
+                            listener.onEpisodeAdded(newEpisode);
                         }
                     });
                 });

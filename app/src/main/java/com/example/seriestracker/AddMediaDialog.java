@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.example.seriestracker.modelo.MediaItem;
+import com.example.seriestracker.AddEpisodeDialog;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -54,7 +55,9 @@ public class AddMediaDialog extends DialogFragment {
                 // Si es una serie, mostrar el diálogo de episodios
                 if (type.equals("Serie")) {
                     int seriesId = newItem.getId(); // Asumimos que el ID es generado automáticamente
-                    AddEpisodeDialog episodeDialog = new AddEpisodeDialog(seriesId);
+                    AddEpisodeDialog episodeDialog = new AddEpisodeDialog(seriesId, episode -> {
+                        // Aquí puedes actualizar la lista de episodios si es necesario
+                    });
                     episodeDialog.show(getParentFragmentManager(), "AddEpisodeDialog");
                 }
             }
