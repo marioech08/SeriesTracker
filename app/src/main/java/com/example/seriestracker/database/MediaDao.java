@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface MediaDao {
     @Insert
-    void insert(MediaItem mediaItem);
+    long insert(MediaItem mediaItem);
 
     @Query("SELECT * FROM media_items")
     List<MediaItem> getAllMediaItems();

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -5,38 +6,45 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textSeriesTitle"
+        android:id="@+id/editMediaTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/episode_list_title"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="8dp"/>
+        android:text="@string/edit_media_title"
+        android:textSize="18sp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewEpisodes"
+    <EditText
+        android:id="@+id/inputEditTitle"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scrollbars="vertical"
-        android:contentDescription="@string/episode_list_recycler_description"/>
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:inputType="text"
+        android:autofillHints="name"
+        android:hint="@string/hint_title"/>
+
+    <Spinner
+        android:id="@+id/spinnerEditType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:gravity="end"
         android:paddingTop="16dp">
 
         <Button
-            android:id="@+id/buttonDeleteEpisode"
+            android:id="@+id/buttonCancelEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete_episode"/>
+            android:text="@string/cancel"/>
 
         <Button
-            android:id="@+id/buttonAddEpisode"
+            android:id="@+id/buttonConfirmEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_episode"/>
+            android:text="@string/confirm_edit"/>
     </LinearLayout>
+
 </LinearLayout>

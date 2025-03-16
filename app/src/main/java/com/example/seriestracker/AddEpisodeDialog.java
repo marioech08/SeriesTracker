@@ -3,6 +3,9 @@ package com.example.seriestracker;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +20,7 @@ public class AddEpisodeDialog extends DialogFragment {
     private OnEpisodeAddedListener listener;
 
     public interface OnEpisodeAddedListener {
-        void onEpisodeAdded(Episode episode);
+        void onEpisodeAdded(Episode newEpisode);
     }
 
     public AddEpisodeDialog(int seriesId, OnEpisodeAddedListener listener) {
@@ -29,30 +32,35 @@ public class AddEpisodeDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle("Añadir Episodio");
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_add_episode, null);
+        builder.setView(view);
 
-        EditText input = new EditText(requireActivity());
-        input.setHint("Título del episodio");
-        builder.setView(input);
+        EditText inputEpisodeTitle = view.findViewById(R.id.inputEpisodeTitle);
+        Button buttonSave = view.findViewById(R.id.buttonSaveEpisode);
+        Button buttonCancel = view.findViewById(R.id.buttonCancelEpisode);
 
-        builder.setPositiveButton("Guardar", (dialog, which) -> {
-            String title = input.getText().toString().trim();
-            if (!title.isEmpty()) {
-                Episode newEpisode = new Episode(seriesId, title, false);
+        builder.setTitle(getString(R.string.add_episode_title));
 
+        buttonSave.setOnClickListener(v -> {
+            String episodeTitle = inputEpisodeTitle.getText().toString();
+
+            if (!episodeTitle.isEmpty()) {
+                Episode newEpisode = new Episode(seriesId, episodeTitle, false); // ✅ Agregado boolean "watched"
+
+                // ✅ Guardar en la base de datos
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
-                    MediaDatabase.getInstance(requireActivity()).episodeDao().insert(newEpisode);
-                    requireActivity().runOnUiThread(() -> {
-                        if (listener != null) {
-                            listener.onEpisodeAdded(newEpisode);
-                        }
+                    MediaDatabase.getInstance(getActivity()).episodeDao().insert(newEpisode);
+                    getActivity().runOnUiThread(() -> {
+                        listener.onEpisodeAdded(newEpisode);
+                        dismiss();
                     });
                 });
             }
         });
 
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+        buttonCancel.setOnClickListener(v -> dismiss());
 
         return builder.create();
     }

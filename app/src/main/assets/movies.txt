@@ -1,0 +1,49 @@
+1917;Two soldiers must deliver a crucial message in WWI;8.3
+A Beautiful Mind;A brilliant mathematician struggles with schizophrenia;8.2
+A Clockwork Orange;A delinquent undergoes psychological conditioning;8.3
+Avengers: Endgame;The epic conclusion to the Infinity Saga;8.4
+Blade Runner 2049;A blade runner uncovers a long-hidden secret;8.0
+Braveheart;A Scottish warrior leads a rebellion against England;8.4
+Django Unchained;A freed slave seeks to rescue his wife;8.4
+Fight Club;An insomniac meets a soap salesman and starts a revolution;8.8
+Forrest Gump;A man with a low IQ lives an extraordinary life;8.8
+Gladiator;A betrayed Roman general seeks revenge;8.5
+Goodfellas;The rise and fall of a mafia member;8.7
+Inception;A mind-bending thriller by Christopher Nolan;8.8
+Interstellar;A space exploration epic by Nolan;8.6
+Joker;A failed comedian turns into Gotham’s clown prince of crime;8.4
+Knives Out;A detective investigates a wealthy author's death;7.9
+La La Land;A jazz musician and an actress chase their dreams;8.0
+Logan;Wolverine faces his final battle;8.1
+Mad Max: Fury Road;A post-apocalyptic chase for survival;8.1
+No Country for Old Men;A hunter finds drug money and is pursued by a killer;8.2
+Once Upon a Time in Hollywood;A fading actor and his stuntman navigate 1969 Hollywood;7.8
+Parasite;A poor family infiltrates a wealthy household;8.6
+Pulp Fiction;Intertwined stories of crime and redemption;8.9
+Saving Private Ryan;A WWII mission to rescue a soldier;8.6
+Schindler's List;The story of a man who saved Jews during the Holocaust;9.0
+Se7en;Two detectives hunt a serial killer using the seven deadly sins;8.6
+Spider-Man: Into the Spider-Verse;A young Spider-Man meets alternate versions of himself;8.4
+The Big Lebowski;A laid-back bowler gets caught in a mistaken identity case;8.1
+The Dark Knight;Batman faces the Joker in Gotham;9.0
+The Departed;An undercover cop infiltrates the mob;8.5
+The Godfather;The rise and fall of a powerful mafia family;9.2
+The Godfather Part II;The saga continues with Vito and Michael Corleone;9.0
+The Grand Budapest Hotel;A concierge and his protégé navigate a hotel mystery;8.1
+The Green Mile;A prison guard discovers a miraculous prisoner;8.6
+The Irishman;A mob hitman reflects on his life;7.8
+The Lion King;A young lion prince flees after his father’s death;8.5
+The Lord of the Rings: The Return of the King;The final battle for Middle-earth;9.0
+The Matrix;A hacker discovers the real world is a simulation;8.7
+The Pianist;A pianist struggles to survive during WWII;8.5
+The Prestige;Two rival magicians compete for the ultimate trick;8.5
+The Revenant;A frontiersman fights for survival and revenge;8.0
+The Shawshank Redemption;A banker is imprisoned for a crime he didn't commit;9.3
+The Shining;A family faces horror in an isolated hotel;8.4
+The Silence of the Lambs;An FBI trainee seeks help from a cannibalistic killer;8.6
+The Social Network;The story of Facebook’s creation;7.8
+The Truman Show;A man discovers his life is a reality show;8.1
+The Wolf of Wall Street;A stockbroker's rise and fall in the 90s;8.2
+There Will Be Blood;An oilman’s rise to power and greed;8.2
+Titanic;A romance aboard the ill-fated Titanic;7.9
+Whiplash;A young drummer faces an intense music teacher;8.5

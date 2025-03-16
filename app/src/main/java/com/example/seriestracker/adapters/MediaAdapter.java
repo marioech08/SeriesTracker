@@ -91,9 +91,15 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         }
     }
 
-    public void updateData(List<MediaItem> newItems) {
-        mediaItems.clear();
-        mediaItems.addAll(newItems);
-        notifyDataSetChanged();
+    public void updateData(List<MediaItem> newList) {
+        this.mediaItems.clear();
+        this.mediaItems.addAll(newList);
+        notifyDataSetChanged(); // Notificar cambios a RecyclerView
     }
+
+
+
+
+
+
 }

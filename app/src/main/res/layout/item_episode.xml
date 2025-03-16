@@ -10,13 +10,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Episodio 1"
+        android:text="@string/episode_title"
         android:textSize="16sp"
-        android:textColor="@android:color/black"/>
+        android:textColor="?attr/colorOnBackground"/>
 
     <CheckBox
         android:id="@+id/checkEpisodeWatched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Visto"/>
+        android:text="@string/watched"/>
 </LinearLayout>

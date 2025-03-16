@@ -1,22 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
     <string name="app_name">SeriesTracker</string>
+
+    <!-- UI General -->
     <string name="title">Título</string>
     <string name="type">Tipo</string>
+
+    <!-- Tipos de medios -->
     <string-array name="media_types">
         <item>Serie</item>
         <item>Película</item>
     </string-array>
+
+    <!-- Descripciones y botones -->
     <string name="add_item_desc">Añadir nueva serie o película</string>
     <string name="hint_title">Ingrese el título</string>
     <string name="recycler_view_desc">Lista de series y películas</string>
     <string name="episode_list_title">Lista de Episodios</string>
-    <string name="add_episode_button">Agregar Episodio</string>
     <string name="episode_list_recycler_description">Lista de episodios de la serie</string>
+
+    <!-- Botones -->
     <string name="add_episode">Añadir Episodio</string>
     <string name="delete_episode">Eliminar Episodio</string>
 
+    <!-- Ajustes -->
+    <string name="settings">Ajustes</string>
+    <string name="dark_mode">Modo Oscuro</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="change_language">Cambiar a Inglés</string>
 
+    <!-- Diálogos -->
+    <string name="confirm_delete">¿Seguro que deseas eliminar %1$s?</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
 
+    <!-- Episodios -->
+    <string name="episode_title">Título del Episodio</string>
+    <string name="watched">Visto</string>
 
+    <!-- Menú -->
+    <string name="menu_options_desc">Menú de opciones</string>
+    <string name="edit">Editar</string>
+
+    <!-- Diálogos para Añadir Película o Serie -->
+    <string name="add_media_title">Agregar Nueva Película o Serie</string>
+    <string name="media_type">Tipo</string>
+    <string name="confirm_add">Agregar</string>
+    <string name="cancel_add">Cancelar</string>
+
+    <!-- Diálogos para Editar Película o Serie -->
+    <string name="edit_media_title">Editar Película o Serie</string>
+    <string name="confirm_edit">Guardar</string>
+
+    <!-- Diálogos para Añadir Episodios -->
+    <string name="add_episode_title">Añadir Episodio</string>
+    <string name="episode_hint">Ingrese el título del episodio</string>
+    <string name="save_episode">Guardar</string>
+    <string name="cancel_episode">Cancelar</string>
+
+    <!-- Nombres de las pestañas -->
+    <string name="tab_series">Ver</string>
+    <string name="tab_movies">Películas</string>
+
+    <string name="rating_format">Calificación: %.1f</string>
 
 </resources>
